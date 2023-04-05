@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:ShellSearchTest"
+             x:Class="ShellSearchTest.AboutPage"
+             Title="{Binding Title}">
+
+    <ContentPage.BindingContext>
+        <vm:AboutViewModel />
+    </ContentPage.BindingContext>
+
+    <Shell.SearchHandler>
+        <vm:AboutSearchHandler Placeholder="Enter item name"
+                                 ShowsResults="False"
+                                 BackgroundColor="White"
+                                 TextColor="Black">
+            <vm:AboutSearchHandler.ItemTemplate>
+                <DataTemplate>
+                    <Grid x:DataType="vm:TestItem">
+                        <Label Text="{Binding Name}"/>
+                    </Grid>
+                </DataTemplate>
+            </vm:AboutSearchHandler.ItemTemplate>
+        </vm:AboutSearchHandler>
+    </Shell.SearchHandler>
+
+    <VerticalStackLayout>
+        <Label 
+            Text="Welcome to .NET MAUI!"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+    </VerticalStackLayout>
+</ContentPage>
