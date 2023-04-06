@@ -59,11 +59,15 @@ namespace ShellSearchTest
 
         // TODO: Called only when search suggestions are enabled and the user chooses a selection, or in iOS
         //       simulator when Return button typed, or on an iOS device when "Search" tapped on virtual keyboard.
-        protected override void OnQueryConfirmed()
+        protected override async void OnQueryConfirmed()
         {
             base.OnQueryConfirmed();
 
             Debug.WriteLine("AboutSearchHandler.OnQueryConfirmed().");
+
+            await Task.Delay(100);  // Delay a bit to give a change for IsFocused to change to 'False'.
+
+            await Shell.Current.CurrentPage.DisplayAlert("About", $"AboutSearchHandler.OnQueryConfirmed(): Query: '{Query}' IsFocused: '{IsFocused}'.", "OK");
         }
 
         protected override void OnItemSelected(object item)
@@ -94,7 +98,7 @@ namespace ShellSearchTest
             base.OnUnfocus();
             Debug.WriteLine("AboutSearchHandler.OnUnfocus().");
 
-            await Shell.Current.CurrentPage.DisplayAlert("About", "AboutSearchHandler.OnUnfocus().", "OK");
+            //await Shell.Current.CurrentPage.DisplayAlert("About", $"AboutSearchHandler.OnUnfocus(): IsFocused: '{IsFocused}'.", "OK");
         }
     }
 
